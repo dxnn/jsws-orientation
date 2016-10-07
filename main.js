@@ -1,4 +1,10 @@
 const can = document.getElementById('cancan')
 const ctx = can.getContext('2d')
 
-ctx.fillRect(50, 50, 50, 50)
+function orient(e) {
+  var x = 100 + e.beta
+  var y = 100 + e.gamma
+  ctx.fillRect(x, y, 50, 50)
+}
+
+window.addEventListener('deviceorientation', orient)
