@@ -28,3 +28,11 @@ function eat_keys(e) {
 }
 
 addEventListener('keydown', eat_keys)
+
+function orient(e) {
+  var x = 100 + e.beta
+  var y = 100 + e.gamma
+  ctx.fillRect(x, y, 50, 50)
+}
+
+window.addEventListener('deviceorientation', orient)
