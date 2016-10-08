@@ -24,6 +24,8 @@ function eat_keys(e) {
   rect[1] += delta[1]
 
   ctx.clearRect(0, 0, width, height)
+
+  ctx.fillStyle = "#000"
   ctx.fillRect(rect[0], rect[1], 50, 50)
 }
 
@@ -32,6 +34,8 @@ addEventListener('keydown', eat_keys)
 function orient(e) {
   var x = 100 + e.beta
   var y = 100 + e.gamma
+
+  ctx.fillStyle = "#f66"
   ctx.fillRect(x, y, 50, 50)
 }
 
