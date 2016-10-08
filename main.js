@@ -7,7 +7,9 @@ const keymap = { a: [-1, 0]
                , w: [0, -1]
                }
 
-const rect = [100,100]
+let state = {}
+state.rect = [100, 100]
+state.ball = {x: 100, y: 100}
 
 const width = 600
 const height = 600
@@ -20,23 +22,36 @@ function eat_keys(e) {
 
   if(!delta) return false
 
-  rect[0] += delta[0]
-  rect[1] += delta[1]
+  state.rect[0] += delta[0]
+  state.rect[1] += delta[1]
+}
 
+function orient(e) {
+  state.ball.x = 100 + e.beta
+  state.ball.y = 100 + e.gamma
+}
+
+function render(state) {
   ctx.clearRect(0, 0, width, height)
 
   ctx.fillStyle = "#000"
-  ctx.fillRect(rect[0], rect[1], 50, 50)
-}
-
-addEventListener('keydown', eat_keys)
-
-function orient(e) {
-  var x = 100 + e.beta
-  var y = 100 + e.gamma
+  ctx.fillRect(state.rect[0], state.rect[1], 50, 50)
 
   ctx.fillStyle = "#f66"
-  ctx.fillRect(x, y, 50, 50)
+  ctx.fillRect(state.ball.x, state.ball.y, 50, 50)
 }
 
-window.addEventListener('deviceorientation', orient)
+function renderLoop() {
+  window.requestAnimationFrame(() => {
+    render(state)
+    renderLoop()
+  })
+}
+
+function init() {
+  window.addEventListener('keydown', eat_keys)
+  window.addEventListener('deviceorientation', orient)
+  renderLoop()
+}
+
+init()
