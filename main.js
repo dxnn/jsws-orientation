@@ -9,6 +9,11 @@ const keymap = { a: [-1, 0]
 
 const rect = [100,100]
 
+const width = 600
+const height = 600
+can.width = width
+can.height = height
+
 function eat_keys(e) {
   const key = e.key
   const delta = keymap[key]
@@ -18,7 +23,7 @@ function eat_keys(e) {
   rect[0] += delta[0]
   rect[1] += delta[1]
 
-  ctx.clearRect(0, 0, 1000, 1000)
+  ctx.clearRect(0, 0, width, height)
   ctx.fillRect(rect[0], rect[1], 50, 50)
 }
 
