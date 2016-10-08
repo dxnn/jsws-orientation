@@ -1,10 +1,24 @@
 const can = document.getElementById('cancan')
 const ctx = can.getContext('2d')
 
-function orient(e) {
-  var x = 100 + e.beta
-  var y = 100 + e.gamma
-  ctx.fillRect(x, y, 50, 50)
+const keymap = { a: [-1, 0]
+               , s: [0, 1]
+               , d: [1, 0]
+               , w: [0, -1]
+               }
+
+const rect = [100,100]
+
+function eat_keys(e) {
+  const key = e.key
+  const delta = keymap[key]
+
+  if(!delta) return false
+
+  rect[0] += delta[0]
+  rect[1] += delta[1]
+
+  ctx.fillRect(rect[0], rect[1], 50, 50)
 }
 
-window.addEventListener('deviceorientation', orient)
+addEventListener('keydown', eat_keys)
