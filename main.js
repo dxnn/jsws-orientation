@@ -18,6 +18,7 @@ function eat_keys(e) {
   rect[0] += delta[0]
   rect[1] += delta[1]
 
+  ctx.clearRect(0, 0, 1000, 1000)
   ctx.fillRect(rect[0], rect[1], 50, 50)
 }
 
