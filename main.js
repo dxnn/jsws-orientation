@@ -7,9 +7,9 @@ const keymap = { a: [-1, 0]
                , w: [0, -1]
                }
 
-let state = {}
-state.rect = {x: 100, y: 100}
-state.ball = {x: 100, y: 100}
+let state = { rect: {x: 100, y: 100}
+            , ball: {x: 100, y: 100}
+            }
 
 const width = 600
 const height = 600
