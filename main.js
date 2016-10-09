@@ -8,7 +8,7 @@ const keymap = { a: [-1, 0]
                }
 
 let state = {}
-state.rect = [100, 100]
+state.rect = {x: 100, y: 100}
 state.ball = {x: 100, y: 100}
 
 const width = 600
@@ -22,8 +22,8 @@ function eat_keys(e) {
 
   if(!delta) return false
 
-  state.rect[0] += delta[0]
-  state.rect[1] += delta[1]
+  state.rect.x += delta[0]
+  state.rect.y += delta[1]
 }
 
 function orient(e) {
@@ -35,7 +35,7 @@ function render(state) {
   ctx.clearRect(0, 0, width, height)
 
   ctx.fillStyle = "#000"
-  ctx.fillRect(state.rect[0], state.rect[1], 50, 50)
+  ctx.fillRect(state.rect.x, state.rect.y, 50, 50)
 
   ctx.fillStyle = "#f66"
   ctx.fillRect(state.ball.x, state.ball.y, 50, 50)
