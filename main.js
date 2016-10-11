@@ -122,8 +122,10 @@ function render(state) {
     dy += curr.mouse.y - b.p.y
 
     // don't move birds too quickly!
-    dx = Math.atan(dx)
-    dy = Math.atan(dy)
+    // dx = Math.atan(dx)
+    // dy = Math.atan(dy)
+    dx = Math.min(Math.max(dx, -1), 1)
+    dy = Math.min(Math.max(dy, -1), 1)
 
     const newv = {x: dx, y: dy}
     const newp = {x: b.p.x + b.v.x, y: b.p.y + b.v.y}
@@ -134,19 +136,10 @@ function render(state) {
   function delta_birds(b) {
     return curr.birds.reduce((acc, t) => {
       if(t === b) return acc
-      acc.x += 1 / ((t.p.x - b.p.x) || .001)
-      acc.y += 1 / ((t.p.y - b.p.y) || .001)
+      acc.x += 300 / ((b.p.x - t.p.x) || .001)
+      acc.y += 300 / ((b.p.y - t.p.y) || .001)
       return acc
     }, {x: 0, y: 0})
-  }
-  function closest_bird(b) {
-    return curr.birds.reduce((acc, t) =>
-                               t === b
-                             ? acc
-                             : acc.p.x - b.p.x + acc.p.y - b.p.y < t.p.x - b.p.x + t.p.y - b.p.y
-                             ? acc
-                             : t
-                           , {p: {x: Infinity, y: Infinity}})
   }
 }
 
