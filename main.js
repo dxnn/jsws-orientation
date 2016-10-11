@@ -11,6 +11,12 @@ let state = { rect: {x: 100, y: 100}
             , ball: {x: 100, y: 100}
             }
 
+function set(path, val, obj=state) {
+  let keys = path.split('.').reverse()
+  let key = keys.pop()
+
+}
+
 const width = 600
 const height = 600
 can.width = width
