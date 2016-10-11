@@ -92,7 +92,19 @@ function render(state) {
   drawRect('#f66', state.ball.x,  state.ball.y,  50, 50)
   drawRect('#66f', state.mouse.x, state.mouse.y, 30, 30)
 
-  state.birds.forEach((b,i) => drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12))
+  const curr = state
+  const num_b = curr.birds.length
+  const avg_p = curr.birds.reduce((acc, b) => ({x: acc.x + b.p.x, y: acc.y + b.p.y}), {x: 0, y:0})
+  const avg_v = curr.birds.reduce((acc, b) => ({x: acc.x + b.v.x, y: acc.y + b.v.y}), {x: 0, y:0})
+
+  curr.birds.forEach((b,i) => {
+    const newv = { x: (avg_p.x + avg_v.x + Math.sqrt(state.mouse.x) || 0) || 0
+                 , y: (avg_p.y + avg_v.y + Math.sqrt(state.mouse.y) || 0) || 0
+                 }
+    const newp = {x: b.p.x + b.v.x, y: b.p.y + b.v.y}
+    set(`birds.${i}`, {p: newp, v: newv})
+    drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12)
+  })
 }
 
 function drawRect(color, x, y, w, h) {
