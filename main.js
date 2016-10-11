@@ -99,11 +99,22 @@ function render(state) {
   const avg_p = {x: tot_p.x / num_b, y: tot_p.y / num_b}
   const avg_v = {x: tot_v.x / num_b, y: tot_v.y / num_b}
 
-
   curr.birds.forEach((b,i) => {
-    const newv = { x: (avg_p.x + avg_v.x || 0) || 0
-                 , y: (avg_p.y + avg_v.y || 0) || 0
-                 }
+    let dx = 0
+    let dy = 0
+
+    // three rules for birds
+    // rule 1: move toward center position
+    dx += avg_p.x - b.p.x
+    dy += avg_p.y - b.p.y
+
+    // rule 2: move toward common heading
+    dx += avg_v.x - b.v.x
+    dy += avg_v.y - b.v.y
+
+    // rule 3: avoid nabes
+
+    const newv = {x: dx, y: dy}
     const newp = {x: b.p.x + b.v.x, y: b.p.y + b.v.y}
     set(`birds.${i}`, {p: newp, v: newv})
     drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12)
