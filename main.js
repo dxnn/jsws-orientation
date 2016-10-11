@@ -7,8 +7,9 @@ const keymap = { a: [-1, 0]
                , w: [0, -1]
                }
 
-let state = { rect: {x: 100, y: 100}
-            , ball: {x: 100, y: 100}
+let state = { rect:  {x: 100, y: 100}
+            , ball:  {x: 100, y: 100}
+            , mouse: {x: 100, y: 100}
             }
 
 function set(path, val, obj=state) {
@@ -37,6 +38,11 @@ function orient(e) {
   state.ball.y = 100 + e.gamma
 }
 
+function mouser(e) {
+  state.mouse.x = e.x
+  state.mouse.y = e.y
+}
+
 function render(state) {
   ctx.clearRect(0, 0, width, height)
 
@@ -45,6 +51,9 @@ function render(state) {
 
   ctx.fillStyle = "#f66"
   ctx.fillRect(state.ball.x, state.ball.y, 50, 50)
+
+  ctx.fillStyle = "#66f"
+  ctx.fillRect(state.mouse.x, state.mouse.y, 30, 30)
 }
 
 function renderLoop() {
@@ -57,6 +66,7 @@ function renderLoop() {
 function init() {
   window.addEventListener('keydown', eat_keys)
   window.addEventListener('deviceorientation', orient)
+  window.addEventListener('mousemove', mouser)
   renderLoop()
 }
 
