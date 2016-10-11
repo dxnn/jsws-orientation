@@ -113,6 +113,12 @@ function render(state) {
     dy += avg_v.y - b.v.y
 
     // rule 3: avoid nabes
+    dx += 10000 * Math.random() / ((closest_bird(b).p.x - b.p.x) || 0.001)
+    dy += 10000 * Math.random() / ((closest_bird(b).p.y - b.p.y) || 0.001)
+
+    // rule 4: head toward the mouse!
+    dx += curr.mouse.x - b.p.x
+    dy += curr.mouse.y - b.p.y
 
     // don't move birds too quickly!
     dx = Math.atan(dx)
@@ -123,6 +129,16 @@ function render(state) {
     set(`birds.${i}`, {p: newp, v: newv})
     drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12)
   })
+
+  function closest_bird(b) {
+    return curr.birds.reduce((acc, t) =>
+                               t === b
+                             ? acc
+                             : acc.p.x - b.p.x + acc.p.y - b.p.y < t.p.x - b.p.x + t.p.y - b.p.y
+                             ? acc
+                             : t
+                           , {p: {x: Infinity, y: Infinity}})
+  }
 }
 
 function drawRect(color, x, y, w, h) {
