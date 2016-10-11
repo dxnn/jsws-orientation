@@ -94,12 +94,15 @@ function render(state) {
 
   const curr = state
   const num_b = curr.birds.length
-  const avg_p = curr.birds.reduce((acc, b) => ({x: acc.x + b.p.x, y: acc.y + b.p.y}), {x: 0, y:0})
-  const avg_v = curr.birds.reduce((acc, b) => ({x: acc.x + b.v.x, y: acc.y + b.v.y}), {x: 0, y:0})
+  const tot_p = curr.birds.reduce((acc, b) => ({x: acc.x + b.p.x, y: acc.y + b.p.y}), {x: 0, y:0})
+  const tot_v = curr.birds.reduce((acc, b) => ({x: acc.x + b.v.x, y: acc.y + b.v.y}), {x: 0, y:0})
+  const avg_p = {x: tot_p.x / num_b, y: tot_p.y / num_b}
+  const avg_v = {x: tot_v.x / num_b, y: tot_v.y / num_b}
+
 
   curr.birds.forEach((b,i) => {
-    const newv = { x: (avg_p.x + avg_v.x + Math.sqrt(state.mouse.x) || 0) || 0
-                 , y: (avg_p.y + avg_v.y + Math.sqrt(state.mouse.y) || 0) || 0
+    const newv = { x: (avg_p.x + avg_v.x || 0) || 0
+                 , y: (avg_p.y + avg_v.y || 0) || 0
                  }
     const newp = {x: b.p.x + b.v.x, y: b.p.y + b.v.y}
     set(`birds.${i}`, {p: newp, v: newv})
