@@ -113,8 +113,9 @@ function render(state) {
     dy += avg_v.y - b.v.y
 
     // rule 3: avoid nabes
-    dx += 10000 * Math.random() / ((closest_bird(b).p.x - b.p.x) || 0.001)
-    dy += 10000 * Math.random() / ((closest_bird(b).p.y - b.p.y) || 0.001)
+    const db = delta_birds(b)
+    dx += db.x
+    dy += db.y
 
     // rule 4: head toward the mouse!
     dx += curr.mouse.x - b.p.x
@@ -130,6 +131,14 @@ function render(state) {
     drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12)
   })
 
+  function delta_birds(b) {
+    return curr.birds.reduce((acc, t) => {
+      if(t === b) return acc
+      acc.x += 1 / ((t.p.x - b.p.x) || .001)
+      acc.y += 1 / ((t.p.y - b.p.y) || .001)
+      return acc
+    }, {x: 0, y: 0})
+  }
   function closest_bird(b) {
     return curr.birds.reduce((acc, t) =>
                                t === b
