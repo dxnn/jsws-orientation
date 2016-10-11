@@ -46,14 +46,14 @@ function mouser(e) {
 function render(state) {
   ctx.clearRect(0, 0, width, height)
 
-  ctx.fillStyle = "#000"
-  ctx.fillRect(state.rect.x, state.rect.y, 50, 50)
+  drawRect('#000', state.rect.x,  state.rect.y,  50, 50)
+  drawRect('#f66', state.ball.x,  state.ball.y,  50, 50)
+  drawRect('#66f', state.mouse.x, state.mouse.y, 30, 30)
+}
 
-  ctx.fillStyle = "#f66"
-  ctx.fillRect(state.ball.x, state.ball.y, 50, 50)
-
-  ctx.fillStyle = "#66f"
-  ctx.fillRect(state.mouse.x, state.mouse.y, 30, 30)
+function drawRect(color, x, y, w, h) {
+  ctx.fillStyle = color
+  ctx.fillRect(x, y, w, h)
 }
 
 function renderLoop() {
