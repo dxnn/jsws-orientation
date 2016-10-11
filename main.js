@@ -114,6 +114,10 @@ function render(state) {
 
     // rule 3: avoid nabes
 
+    // don't move birds too quickly!
+    dx = 1 - 1/(Math.ceil(dx) + 1)
+    dy = 1 - 1/(Math.ceil(dy) + 1)
+
     const newv = {x: dx, y: dy}
     const newp = {x: b.p.x + b.v.x, y: b.p.y + b.v.y}
     set(`birds.${i}`, {p: newp, v: newv})
