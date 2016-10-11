@@ -53,9 +53,24 @@ let state = { rect:  {x: 100, y: 100}
             }
 
 function set(path, val, obj=state) {
-  let keys = path.split('.').reverse()
-  let key = keys.pop()
+  const keys = path.split('.').reverse()
+  const last = keys.pop()
 
+  let next = shallow_copy(obj)
+  const final = next
+
+  keys.forEach(key => {
+    next[key] = shallow_copy(next[key])
+    next = next[key]
+  })
+
+  next[last] = val
+  return final
+
+  function shallow_copy(o) {
+    if(Array.isArray(o)) return o.slice()
+    Object.keys(o || {}).reduce((acc, k) => {acc[k] = o[k]; return acc}, {})
+  }
 }
 
 
