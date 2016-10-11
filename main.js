@@ -50,6 +50,10 @@ function addListeners() {
 let state = { rect:  {x: 100, y: 100}
             , ball:  {x: 100, y: 100}
             , mouse: {x: 100, y: 100}
+            , birds: [ {p: {x: 100, y: 100}, v: {x: 1, y: 1}}
+                     , {p: {x: 200, y: 200}, v: {x: 1, y: 1}}
+                     , {p: {x: 300, y: 300}, v: {x: 1, y: 1}}
+                     ]
             }
 
 function set(path, val) {
@@ -87,6 +91,8 @@ function render(state) {
   drawRect('#000', state.rect.x,  state.rect.y,  50, 50)
   drawRect('#f66', state.ball.x,  state.ball.y,  50, 50)
   drawRect('#66f', state.mouse.x, state.mouse.y, 30, 30)
+
+  state.birds.forEach((b,i) => drawRect(`#c${3*i}c`, b.p.x, b.p.y, 12, 12))
 }
 
 function drawRect(color, x, y, w, h) {
