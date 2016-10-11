@@ -118,12 +118,10 @@ function render(state) {
     dy += db.y
 
     // rule 4: head toward the mouse!
-    dx += curr.mouse.x - b.p.x
-    dy += curr.mouse.y - b.p.y
+    dx += 1 * (curr.mouse.x - b.p.x)
+    dy += 1 * (curr.mouse.y - b.p.y)
 
     // don't move birds too quickly!
-    // dx = Math.atan(dx)
-    // dy = Math.atan(dy)
     dx = Math.min(Math.max(dx, -1), 1)
     dy = Math.min(Math.max(dy, -1), 1)
 
