@@ -43,6 +43,15 @@ function mouser(e) {
   state.mouse.y = e.y
 }
 
+function addListeners() {
+  const ls = [ ['keydown', eat_keys]
+             , ['mousemove', mouser]
+             , ['deviceorientation', orient]
+             ]
+
+  ls.forEach(l => window.addEventListener(l[0], l[1]))
+}
+
 function render(state) {
   ctx.clearRect(0, 0, width, height)
 
@@ -64,9 +73,7 @@ function renderLoop() {
 }
 
 function init() {
-  window.addEventListener('keydown', eat_keys)
-  window.addEventListener('deviceorientation', orient)
-  window.addEventListener('mousemove', mouser)
+  addListeners()
   renderLoop()
 }
 
