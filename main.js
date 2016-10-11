@@ -29,13 +29,13 @@ function eat_keys(e) {
 
   if(!delta) return false
 
-  state.rect.x += delta[0]
-  state.rect.y += delta[1]
+  state.rect.x += delta[0] * 3
+  state.rect.y += delta[1] * 3
 }
 
 function orient(e) {
-  state.ball.x = 100 + e.beta
-  state.ball.y = 100 + e.gamma
+  state.ball.x = 100 + e.gamma
+  state.ball.y = 100 + e.beta
 }
 
 function mouser(e) {
